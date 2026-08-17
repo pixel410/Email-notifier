@@ -81,9 +81,6 @@
     <label for="trackingUrl">Tracking Portal Link</label>
     <input type="url" id="trackingUrl" required placeholder="https://pixel410.github.io/Delivery/">
 
-    <label for="contactPhone">Support Contact Phone</label>
-    <input type="tel" id="contactPhone" required placeholder="e.g. +1 360-285-3052">
-
     <label for="packageDesc">Package Description</label>
     <textarea id="packageDesc" rows="3" required placeholder="e.g. Blue Wireless Headphones"></textarea>
 
@@ -108,7 +105,6 @@
         to_email: document.getElementById('receiverEmail').value,
         tracking_code: document.getElementById('trackingCode').value,
         tracking_url: document.getElementById('trackingUrl').value,
-        contact_phone: document.getElementById('contactPhone').value,
         package_description: document.getElementById('packageDesc').value
       };
 
