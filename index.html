@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Package Notification</title>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Initialized with your EmailJS Public Key
+      emailjs.init("tvKhcK0TkXcMNF3an");
+    })();
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    h2 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 25px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Dispatch Delivery Notification</h2>
+
+  <form id="notifyForm">
+    <label for="senderName">Sender Name</label>
+    <input type="text" id="senderName" required placeholder="e.g. John's Electronics">
+
+    <label for="receiverEmail">Receiver Email</label>
+    <input type="email" id="receiverEmail" required placeholder="e.g. customer@example.com">
+
+    <label for="packageDesc">Package Description</label>
+    <textarea id="packageDesc" rows="3" required placeholder="e.g. Blue Wireless Headphones"></textarea>
+
+    <label for="trackingCode">Tracking Code</label>
+    <input type="text" id="trackingCode" required placeholder="e.g. TRK-987654">
+
+    <label for="trackingUrl">Tracking Portal Link</label>
+    <input type="url" id="trackingUrl" placeholder="https://yourusername.github.io/tracking-portal" required>
+
+    <button type="submit" id="submitBtn">Send Notification Email</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    document.getElementById('notifyForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const statusText = document.getElementById('status');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      statusText.style.color = "#333";
+      statusText.innerText = "Sending email...";
+      submitBtn.disabled = true;
+
+      const templateParams = {
+        sender_name: document.getElementById('senderName').value,
+        to_email: document.getElementById('receiverEmail').value,
+        package_description: document.getElementById('packageDesc').value,
+        tracking_code: document.getElementById('trackingCode').value,
+        tracking_url: document.getElementById('trackingUrl').value
+      };
+
+      // Configured with your Service ID and Template ID
+      emailjs.send('service_fmbqec4', 'template_4oh5jfm', templateParams)
+        .then(function(response) {
+          statusText.style.color = "green";
+          statusText.innerText = "Email sent successfully!";
+          document.getElementById('notifyForm').reset();
+          submitBtn.disabled = false;
+        }, function(error) {
+          statusText.style.color = "red";
+          statusText.innerText = "Failed to send email. Check console for details.";
+          console.error("EmailJS Error:", error);
+          submitBtn.disabled = false;
+        });
+    });
+  </script>
+
+</body>
+</html>
