@@ -1,0 +1,48 @@
+name: Send Delivery Notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      recipient_email:
+        description: "Customer Email Address"
+        required: true
+      recipient_name:
+        description: "Customer Name"
+        required: true
+        default: "Customer"
+      tracking_code:
+        description: "Tracking Code"
+        required: true
+      tracking_url:
+        description: "Tracking URL (Link to your GitHub Pages portal)"
+        required: true
+      estimated_delivery:
+        description: "Estimated Delivery Date"
+        required: false
+        default: "3-5 Business Days"
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Send Notification
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          RECIPIENT_EMAIL: ${{ github.event.inputs.recipient_email }}
+          RECIPIENT_NAME: ${{ github.event.inputs.recipient_name }}
+          TRACKING_CODE: ${{ github.event.inputs.tracking_code }}
+          TRACKING_URL: ${{ github.event.inputs.tracking_url }}
+          ESTIMATED_DELIVERY: ${{ github.event.inputs.estimated_delivery }}
+        run: node send-email.js
