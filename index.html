@@ -76,13 +76,7 @@
     <input type="email" id="receiverEmail" required placeholder="e.g. customer@example.com">
 
     <label for="packageDesc">Package Description</label>
-    <textarea id="packageDesc" rows="3" required placeholder="e.g. Blue Wireless Headphones"></textarea>
-
-    <label for="trackingCode">Tracking Code</label>
-    <input type="text" id="trackingCode" required placeholder="e.g. TRK-987654">
-
-    <label for="trackingUrl">Tracking Portal Link</label>
-    <input type="url" id="trackingUrl" placeholder="https://yourusername.github.io/tracking-portal" required>
+    <textarea id="packageDesc" rows="4" required placeholder="e.g. Blue Wireless Headphones"></textarea>
 
     <button type="submit" id="submitBtn">Send Notification Email</button>
   </form>
@@ -103,9 +97,7 @@
       const templateParams = {
         sender_name: document.getElementById('senderName').value,
         to_email: document.getElementById('receiverEmail').value,
-        package_description: document.getElementById('packageDesc').value,
-        tracking_code: document.getElementById('trackingCode').value,
-        tracking_url: document.getElementById('trackingUrl').value
+        package_description: document.getElementById('packageDesc').value
       };
 
       // Configured with your Service ID and Template ID
